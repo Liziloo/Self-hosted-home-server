@@ -1,0 +1,31 @@
+
+# Note: 192.168.1.xxx is an example network, you must update all these to match your own.
+networks:
+  adnet: #This is a macvlan network. You must create it. Name doesn't matter.
+    external: true
+services:
+  adguard:
+    container_name: adguard
+    image: adguard/adguardhome:edge #This is the dev branch. I'm currently using it because there was a break the project recently fixed.
+    cap_add:
+      - NET_ADMIN
+    networks:
+      adnet: # <-- MACVlan Name You need to create first in Portainer WebGUI.
+        ipv4_address: 192.168.0.199 # <-- Update to your desired Pihole IPv4
+        # https://www.youtube.com/watch?v=4741-YR31fM
+        # https://www.youtube.com/watch?v=o7nn6Tv-PAw
+    volumes:
+      - ./work:/opt/adguardhome/work
+      - ./conf:/opt/adguardhome/conf
+    ports:
+      - 53:53/udp
+      - 67:67/udp
+      - 68:68/udp
+      - 53:53/tcp
+      - 68:68/tcp
+      - 80:80/tcp 
+      - 443:443/tcp 
+      - 853:853/tcp 
+      - 3000:3000/tcp
+    restart: unless-stopped
+    
