@@ -1,0 +1,19 @@
+services:
+  cloudflareddns:
+    container_name: cloudflareddns
+    image: ghcr.io/hotio/cloudflareddns:release-fdc0010
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - UMASK=002
+      - INTERVAL=300
+      - DETECTION_MODE=curl-seeip.org
+      - LOG_LEVEL=3
+      - CF_USER=youremail@here.com
+      - CF_HOSTS=yourdomain.com
+      - CF_ZONES=yourdomain.com
+      - CF_APITOKEN=yourcloudflarecustomAPItoken
+      - CF_RECORDTYPES=A
+    volumes:
+      - ./:/config
