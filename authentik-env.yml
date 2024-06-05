@@ -1,0 +1,20 @@
+AUTHENTIK_SECRET_KEY=your.secret.key
+AUTHENTIK_ERROR_REPORTING__ENABLED=true
+
+PG_PASS=your.pass
+PG_USER=authentik
+PG_DB=authentik
+
+# SMTP Host Emails are sent to
+AUTHENTIK_EMAIL__HOST=smtp.gmail.com
+AUTHENTIK_EMAIL__PORT=465
+# Optionally authenticate (don't add quotation marks to your password)
+AUTHENTIK_EMAIL__USERNAME=youremail@fake.com
+AUTHENTIK_EMAIL__PASSWORD=youremailpass
+# Use StartTLS
+AUTHENTIK_EMAIL__USE_TLS=false
+# Use SSL
+AUTHENTIK_EMAIL__USE_SSL=true
+AUTHENTIK_EMAIL__TIMEOUT=10
+# Email address authentik will send from, should have a correct @domain
+AUTHENTIK_EMAIL__FROM=youremail@fake.com
