@@ -1,0 +1,42 @@
+services:
+  qbittorrentvpn:
+    image: binhex/arch-qbittorrentvpn
+    container_name: qbittorrentvpn
+    cap_add: 
+      - net_admin
+    environment:
+      - PUID=1018
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - UMASK=000
+      - VPN_ENABLED=yes
+      - VPN_PROV=protonvpn
+      - VPN_CLIENT=openvpn
+      - VPN_USER=yourprotonvpnapiuserid
+      - VPN_PASS=yourprotonvpnapipassword
+      #- STRICT_PORT_FORWARD=yes
+      - LAN_NETWORK=192.168.0.0/24
+      - NAME_SERVERS=1.1.1.1,1.0.0.1,9.9.9.9
+      - DEBUG=false
+      - WEBUI_PORT=8585
+      - ENABLE_PRIVOXY=no
+      - ENABLE_STARTUP_SCRIPTS=yes
+      #- VPN_OPTIONS=additional openvpn cli options \
+    volumes:
+      - CHANGE_TO_COMPOSE_DATA_PATH/torrents:/data/torrents
+      - CHANGE_TO_COMPOSE_DATA_PATH/torrents/movies:/data/torrents/movies
+      - CHANGE_TO_COMPOSE_DATA_PATH/torrents/tv:/data/torrents/tv
+      - ./:/config
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 6881:6881
+      - 6881:6881/udp
+      - 8585:8585
+      - 8118:8118
+    restart: unless-stopped
+
+networks:
+  default:
+    name: riker
+    external: true
+
