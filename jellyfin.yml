@@ -1,0 +1,25 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
+    environment:
+      - user=1008:100
+      - TZ=${TZ}
+      - JELLYFIN_PublishedServerUrl=192.168.0.250 
+    volumes:
+      - ./:/config
+      - ./cache:/cache
+      - CHANGE_TO_COMPOSE_DATA_PATH/media:/data/media
+    ports:
+      - 8096:8096
+      - 8920:8920 #optional
+      - 7359:7359/udp #optional
+      - 1900:1900/udp #optional
+    restart: unless-stopped
+    
+networks:
+  default:
+    name: riker
+    external: true
